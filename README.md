@@ -59,9 +59,9 @@ After building initial versions of each model, I iteratively improved upon them 
 ## Model Evaluation
 The KNN model underperformed compared to the rest. Of the others, the voting classifier slightly outperformed the next best model: gradient boosting. Below is a summary of the metrics, along with the voting classifier ROC curve:
 
-![test_score_df.png](/test_score_df.png)
+![test_score_df.png]([/test_score_df.png](https://github.com/luke-lite/Bank-Account-Fraud-Detection/blob/cb4d1ca4748b01f77bf1995f72d2b3740897eeee/graphs/test_score_df.png))
 
-![vc_roc_curve.png](/vc_roc_curve.png)
+![vc_roc_curve.png]([/vc_roc_curve.png](https://github.com/luke-lite/Bank-Account-Fraud-Detection/blob/cb4d1ca4748b01f77bf1995f72d2b3740897eeee/graphs/vc_roc_curve.png))
 
 At a threshold of .05 FPR (false positive rate), the voting classifier model was able to correctly identify about half of the true positives. Now that we have several models, I can analyze them for fairness and bias.
 
@@ -70,13 +70,13 @@ To evaluate bias and fairness, I used the [Aequitas Fairness and Bias Audit Tool
 
 With the exception of the KNN model (which was also an outlier in terms of performance), the other models all had similar FPR distributions. Below is the distribution for the voting classifier:
 
-![vc_fpr_bias.png](/vc_fpr_bias.png)
+![vc_fpr_bias.png]([/vc_fpr_bias.png](https://github.com/luke-lite/Bank-Account-Fraud-Detection/blob/cb4d1ca4748b01f77bf1995f72d2b3740897eeee/graphs/vc_fpr_bias.png))
 
 There is some bias in each group, but especially in age. This is probably in part due to the small sample size of the over 90 sub-category, but the trend continues throughout the dataset: older age increases the chance of receiving a false positive.
 
 It is also important to note how the subgroup selection affects the results. I will create new subgroups by binning the `age` group into `over_50` and `under_50`. Likewise, I will split the `income` group into `high` and `low` income, and see how the FPR changes for the voting classifier:
 
-![vc_cats_bias.png](/vc_cats_bias.png)
+![vc_cats_bias.png]([/vc_cats_bias.png](https://github.com/luke-lite/Bank-Account-Fraud-Detection/blob/cb4d1ca4748b01f77bf1995f72d2b3740897eeee/graphs/vc_cats_bias.png))
 
 As seen above, this small change can greatly affect the ratios. However, it is important to note that the models were not trained using these categories. Ideally, the models should be re-trained using the new categories to see how performance and bias is affected.
 
